@@ -5,6 +5,18 @@ class PostsController < ApplicationController
     end
 
     def create
-        byebug
+        post=Post.new(post_params)
+        
+        if post.save
+            render json: post
+        else
+            render json:{error:'not valid'}
+        end
     end
+
+    private
+    def post_params
+        params.require(:post).permit(:title, :body)
+    end
+
 end
